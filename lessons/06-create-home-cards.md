@@ -73,7 +73,7 @@
    export async function getAllCategories() {
      await connectToDatabase()
      const categories = await Product.find({ isPublished: true }).distinct(
-       'category'
+       'category',
      )
      return categories
    }
@@ -91,7 +91,7 @@
          name: 1,
          href: { $concat: ['/product/', '$slug'] },
          image: { $arrayElemAt: ['$images', 0] },
-       }
+       },
      )
        .sort({ createdAt: 'desc' })
        .limit(limit)
