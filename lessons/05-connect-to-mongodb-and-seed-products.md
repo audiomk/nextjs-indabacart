@@ -12,7 +12,7 @@
    const cached = (global as any).mongoose || { conn: null, promise: null }
 
    export const connectToDatabase = async (
-     MONGODB_URI = process.env.MONGODB_URI
+     MONGODB_URI = process.env.MONGODB_URI,
    ) => {
      if (cached.conn) return cached.conn
 
@@ -56,7 +56,7 @@
        .number()
        .refine(
          (value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(value)),
-         `${field} must have exactly two decimal places (e.g., 49.99)`
+         `${field} must have exactly two decimal places (e.g., 49.99)`,
        )
    export const ProductInputSchema = z.object({
      name: z.string().min(3, 'Name must be at least 3 characters'),
@@ -193,7 +193,7 @@
      },
      {
        timestamps: true,
-     }
+     },
    )
 
    const Product =
@@ -327,7 +327,7 @@
       {
         name: 'Decrum Mens Plain Long Sleeve T-Shirt - Comfortable Soft Fashion V Neck Full Sleeves Jersey Shirts',
         slug: toSlug(
-          'Decrum Mens Plain Long Sleeve T-Shirt - Comfortable Soft Fashion V Neck Full Sleeves Jersey Shirts'
+          'Decrum Mens Plain Long Sleeve T-Shirt - Comfortable Soft Fashion V Neck Full Sleeves Jersey Shirts',
         ),
         category: 'T-Shirts',
         brand: 'Jerzees',
@@ -357,7 +357,7 @@
       {
         name: "Muscle Cmdr Men's Slim Fit Henley Shirt Long&Short Business Sleeve Casual 3 Metal Buton Placket Casual Stylish T-Shirt",
         slug: toSlug(
-          "Muscle Cmdr Men's Slim Fit Henley Shirt Long&Short Business Sleeve Casual 3 Metal Buton Placket Casual Stylish T-Shirt"
+          "Muscle Cmdr Men's Slim Fit Henley Shirt Long&Short Business Sleeve Casual 3 Metal Buton Placket Casual Stylish T-Shirt",
         ),
         category: 'T-Shirts',
         brand: ' Muscle Cmdr',
@@ -444,7 +444,7 @@
       {
         name: "Levi's mens 505 Regular Fit Jeans (Also Available in Big & Tall)",
         slug: toSlug(
-          "Levi's mens 505 Regular Fit Jeans (Also Available in Big & Tall)"
+          "Levi's mens 505 Regular Fit Jeans (Also Available in Big & Tall)",
         ),
         category: 'Jeans',
         brand: "Levi's",
@@ -502,7 +502,7 @@
       {
         name: "Buffalo David Bitton Mens Men's Driven Relaxed Denim JeansJeans",
         slug: toSlug(
-          "Buffalo David Bitton Mens Men's Driven Relaxed Denim JeansJeans"
+          "Buffalo David Bitton Mens Men's Driven Relaxed Denim JeansJeans",
         ),
         category: 'Jeans',
         brand: 'Buffalo David Bitton',
@@ -560,7 +560,7 @@
       {
         name: 'Wrangler mens Premium Performance Cowboy Cut Slim Fit Jean',
         slug: toSlug(
-          'Wrangler mens Premium Performance Cowboy Cut Slim Fit Jean'
+          'Wrangler mens Premium Performance Cowboy Cut Slim Fit Jean',
         ),
         category: 'Jeans',
         brand: 'Wrangler',
@@ -619,7 +619,7 @@
       {
         name: 'SEIKO 5 Sport SRPJ83 Beige Dial Nylon Automatic Watch, Beige, Automatic Watch',
         slug: toSlug(
-          'SEIKO 5 Sport SRPJ83 Beige Dial Nylon Automatic Watch, Beige, Automatic Watch'
+          'SEIKO 5 Sport SRPJ83 Beige Dial Nylon Automatic Watch, Beige, Automatic Watch',
         ),
         category: 'Wrist Watches',
         brand: 'Seiko',
@@ -649,7 +649,7 @@
       {
         name: "Casio Men's Heavy Duty Analog Quartz Stainless Steel Strap, Silver, 42 Casual Watch ",
         slug: toSlug(
-          "Casio Men's Heavy Duty Analog Quartz Stainless Steel Strap, Silver, 42 Casual Watch"
+          "Casio Men's Heavy Duty Analog Quartz Stainless Steel Strap, Silver, 42 Casual Watch",
         ),
         category: 'Wrist Watches',
         brand: 'Casio',
@@ -679,7 +679,7 @@
       {
         name: 'Casio Classic Silver-Tone Stainless Steel Band Date Indicator Watch',
         slug: toSlug(
-          'Casio Classic Silver-Tone Stainless Steel Band Date Indicator Watch'
+          'Casio Classic Silver-Tone Stainless Steel Band Date Indicator Watch',
         ),
         category: 'Wrist Watches',
         brand: 'Casio',
@@ -709,7 +709,7 @@
       {
         name: "Fossil Men's Grant Stainless Steel Quartz Chronograph Watch",
         slug: toSlug(
-          "Fossil Men's Grant Stainless Steel Quartz Chronograph Watch"
+          "Fossil Men's Grant Stainless Steel Quartz Chronograph Watch",
         ),
         category: 'Wrist Watches',
         brand: 'Fossil',
@@ -768,7 +768,7 @@
       {
         name: 'adidas Mens Grand Court 2.0 Training Shoes Training Shoes',
         slug: toSlug(
-          'adidas Mens Grand Court 2.0 Training Shoes Training Shoes'
+          'adidas Mens Grand Court 2.0 Training Shoes Training Shoes',
         ),
         category: 'Shoes',
         brand: 'adidas',
@@ -798,7 +798,7 @@
       {
         name: "ziitop Men's Running Walking Shoes Fashion Sneakers Mesh Dress Shoes Business Oxfords Shoes Lightweight Casual Breathable Work Formal Shoes",
         slug: toSlug(
-          "ziitop Men's Running Walking Shoes Fashion Sneakers Mesh Dress Shoes Business Oxfords Shoes Lightweight Casual Breathable Work Formal Shoes"
+          "ziitop Men's Running Walking Shoes Fashion Sneakers Mesh Dress Shoes Business Oxfords Shoes Lightweight Casual Breathable Work Formal Shoes",
         ),
         category: 'Shoes',
         brand: 'ziitop',
@@ -828,7 +828,7 @@
       {
         name: 'Skechers mens Summits High Range Hands Free Slip-in Shoes Work shoe',
         slug: toSlug(
-          'Skechers mens Summits High Range Hands Free Slip-in Shoes Work shoe'
+          'Skechers mens Summits High Range Hands Free Slip-in Shoes Work shoe',
         ),
         category: 'Shoes',
         brand: 'Skechers',
@@ -858,7 +858,7 @@
       {
         name: 'DLWKIPV Mens Running Shoes Tennis Cross Training Sneakers Fashion Non Slip Outdoor Walking Jogging Shoes Mesh Light Flexible Comfortable Breathable Shoes',
         slug: toSlug(
-          'DLWKIPV Mens Running Shoes Tennis Cross Training Sneakers Fashion Non Slip Outdoor Walking Jogging Shoes Mesh Light Flexible Comfortable Breathable Shoes'
+          'DLWKIPV Mens Running Shoes Tennis Cross Training Sneakers Fashion Non Slip Outdoor Walking Jogging Shoes Mesh Light Flexible Comfortable Breathable Shoes',
         ),
         category: 'Shoes',
         brand: 'DLWKIPV',
@@ -916,7 +916,7 @@
       {
         name: "Mens Wearbreeze Shoes, Urban - Ultra Comfortable Shoes, Breeze Shoes for Men, Men's Mesh Dress Sneakers Business Shoes",
         slug: toSlug(
-          "Mens Wearbreeze Shoes, Urban - Ultra Comfortable Shoes, Breeze Shoes for Men, Men's Mesh Dress Sneakers Business Shoes"
+          "Mens Wearbreeze Shoes, Urban - Ultra Comfortable Shoes, Breeze Shoes for Men, Men's Mesh Dress Sneakers Business Shoes",
         ),
         category: 'Shoes',
         brand: 'Generic',

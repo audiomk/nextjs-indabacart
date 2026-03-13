@@ -102,7 +102,7 @@
          />
          <button
            type='submit'
-           className='bg-primary text-primary-foreground text-black rounded-s-none rounded-e-md h-full px-3 py-2 '
+           className='bg-primary text-black rounded-s-none rounded-e-md h-full px-3 py-2 '
          >
            <SearchIcon className='w-6 h-6' />
          </button>
@@ -194,7 +194,7 @@
              <Search />
            </div>
          </div>
-         <div className='flex items-center px-3 mb-[1px]  bg-gray-800'>
+         <div className='flex items-center px-3 mb-px  bg-gray-800'>
            <Button
              variant='ghost'
              className='header-button flex items-center gap-1 text-base [&_svg]:size-6'
@@ -202,12 +202,12 @@
              <MenuIcon />
              All
            </Button>
-           <div className='flex items-center flex-wrap gap-3 overflow-hidden   max-h-[42px]'>
+           <div className='flex items-center flex-wrap gap-3 overflow-hidden   max-h-10.5'>
              {data.headerMenus.map((menu) => (
                <Link
                  href={menu.href}
                  key={menu.href}
-                 className='header-button !p-2'
+                 className='header-button p-2!'
                >
                  {menu.name}
                </Link>
