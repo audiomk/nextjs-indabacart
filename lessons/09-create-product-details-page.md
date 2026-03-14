@@ -90,7 +90,7 @@
 
          <div className='w-full'>
            <Zoom>
-             <div className='relative h-[500px]'>
+             <div className='relative h-125'>
                <Image
                  src={images[selectedImage]}
                  alt={'product image'}
