@@ -1,8 +1,7 @@
 import { Document, Model, model, models, Schema } from 'mongoose'
 import { IProductInput } from '@/types'
 
-// Use Omit to remove the default Mongoose _id before adding your string version
-export interface IProduct extends Omit<Document, '_id'>, IProductInput {
+export interface IProduct extends Document, IProductInput {
   _id: string
   createdAt: Date
   updatedAt: Date
@@ -89,10 +88,9 @@ const productSchema = new Schema<IProduct>(
   },
   {
     timestamps: true,
-  },
+  }
 )
 
-// This logic is perfect for Next.js to prevent model re-compilation
 const Product =
   (models.Product as Model<IProduct>) ||
   model<IProduct>('Product', productSchema)

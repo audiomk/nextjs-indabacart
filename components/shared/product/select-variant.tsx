@@ -11,75 +11,66 @@ export default function SelectVariant({
   color: string
   size: string
 }) {
-  // Fallback to first available option if none selected
-  const selectedColor =
-    color || (product.colors.length > 0 ? product.colors[0] : '')
-  const selectedSize =
-    size || (product.sizes.length > 0 ? product.sizes[0] : '')
+  const selectedColor = color || product.colors[0]
+  const selectedSize = size || product.sizes[0]
 
   return (
     <>
       {product.colors.length > 0 && (
-        <div className='space-y-2'>
-          <div className='text-sm font-medium'>Color:</div>
-          <div className='flex flex-wrap gap-2'>
-            {product.colors.map((x: string) => (
-              <Button
-                asChild
-                variant='outline'
-                size='sm'
-                className={
-                  selectedColor === x ? 'border-2 border-primary' : 'border-2'
-                }
+        <div className='space-x-2 space-y-2'>
+          <div>Color:</div>
+          {product.colors.map((x: string) => (
+            <Button
+              asChild
+              variant='outline'
+              className={
+                selectedColor === x ? 'border-2 border-primary' : 'border-2'
+              }
+              key={x}
+            >
+              <Link
+                replace
+                scroll={false}
+                href={`?${new URLSearchParams({
+                  color: x,
+                  size: selectedSize,
+                })}`}
                 key={x}
               >
-                <Link
-                  replace
-                  scroll={false}
-                  href={`?${new URLSearchParams({
-                    color: x,
-                    ...(selectedSize && { size: selectedSize }),
-                  })}`}
-                >
-                  <div
-                    style={{ backgroundColor: x.toLowerCase() }}
-                    className='h-4 w-4 rounded-full border border-muted-foreground mr-2'
-                  ></div>
-                  {x}
-                </Link>
-              </Button>
-            ))}
-          </div>
+                <div
+                  style={{ backgroundColor: x }}
+                  className='h-4 w-4 rounded-full border border-muted-foreground'
+                ></div>
+                {x}
+              </Link>
+            </Button>
+          ))}
         </div>
       )}
-
       {product.sizes.length > 0 && (
-        <div className='mt-4 space-y-2'>
-          <div className='text-sm font-medium'>Size:</div>
-          <div className='flex flex-wrap gap-2'>
-            {product.sizes.map((x: string) => (
-              <Button
-                asChild
-                variant='outline'
-                size='sm'
-                className={
-                  selectedSize === x ? 'border-2 border-primary' : 'border-2'
-                }
-                key={x}
+        <div className='mt-2 space-x-2 space-y-2'>
+          <div>Size:</div>
+          {product.sizes.map((x: string) => (
+            <Button
+              asChild
+              variant='outline'
+              className={
+                selectedSize === x ? 'border-2  border-primary' : 'border-2  '
+              }
+              key={x}
+            >
+              <Link
+                replace
+                scroll={false}
+                href={`?${new URLSearchParams({
+                  color: selectedColor,
+                  size: x,
+                })}`}
               >
-                <Link
-                  replace
-                  scroll={false}
-                  href={`?${new URLSearchParams({
-                    ...(selectedColor && { color: selectedColor }),
-                    size: x,
-                  })}`}
-                >
-                  {x}
-                </Link>
-              </Button>
-            ))}
-          </div>
+                {x}
+              </Link>
+            </Button>
+          ))}
         </div>
       )}
     </>

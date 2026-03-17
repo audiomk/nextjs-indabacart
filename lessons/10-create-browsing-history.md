@@ -16,7 +16,7 @@
    export const browsingHistoryStore = create<BrowsingHistory>()(
      persist(() => initialState, {
        name: 'browsingHistoryStore',
-     })
+     }),
    )
 
    export default function useBrowsingHistory() {
@@ -95,7 +95,9 @@
          const res = await fetch(
            `/api/products/browsing-history?type=${type}&categories=${products
              .map((product) => product.category)
-             .join(',')}&ids=${products.map((product) => product.id).join(',')}`
+             .join(
+               ',',
+             )}&ids=${products.map((product) => product.id).join(',')}`,
          )
          const data = await res.json()
          setData(data)
@@ -148,8 +150,8 @@
          products.sort(
            (a, b) =>
              productIds.indexOf(a._id.toString()) -
-             productIds.indexOf(b._id.toString())
-         )
+             productIds.indexOf(b._id.toString()),
+         ),
        )
      return NextResponse.json(products)
    }

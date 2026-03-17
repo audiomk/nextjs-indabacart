@@ -1,20 +1,41 @@
-import { ShoppingCartIcon } from 'lucide-react'
-import Link from 'next/link'
+import CartButton from './cart-button'
+import { EllipsisVertical } from 'lucide-react'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
+import ThemeSwitcher from './theme-switcher'
+import UserButton from './user-button'
 
-export default function Menu() {
+export default function Menu({ forAdmin = false }: { forAdmin?: boolean }) {
   return (
     <div className='flex justify-end'>
-      <nav className='flex gap-3 w-full'>
-        <Link href='/signin' className='flex items-center header-button'>
-          Hello, Sign in
-        </Link>
-
-        <Link href='/cart' className='header-button'>
-          <div className='flex items-end'>
-            <ShoppingCartIcon className='h-8 w-8' />
-            Cart
-          </div>
-        </Link>
+      <nav className='hidden md:flex gap-3  w-full'>
+        <ThemeSwitcher />
+        <UserButton />
+        {forAdmin ? null : <CartButton />}
+      </nav>
+      <nav className='md:hidden'>
+        <Sheet>
+          <SheetTrigger className='align-middle header-button'>
+            <EllipsisVertical className='h-6 w-6' />
+          </SheetTrigger>
+          <SheetContent className='bg-black text-white  flex flex-col items-start  '>
+            <SheetHeader className='w-full'>
+              <div className='flex items-center justify-between '>
+                <SheetTitle>Site Menu</SheetTitle>
+                <SheetDescription></SheetDescription>
+              </div>
+            </SheetHeader>
+            <ThemeSwitcher />
+            <UserButton />
+            <CartButton />
+          </SheetContent>
+        </Sheet>
       </nav>
     </div>
   )

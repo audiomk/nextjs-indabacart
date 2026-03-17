@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import Image from 'next/image'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 
 const ImageHover = ({
   src,
@@ -13,25 +13,13 @@ const ImageHover = ({
   alt: string
 }) => {
   const [isHovered, setIsHovered] = useState(false)
-
-  // Use a ref to store the timeout ID so it persists across renders
-  const hoverTimeoutRef = useRef<any>(null)
-
+  let hoverTimeout: any
   const handleMouseEnter = () => {
-    // Clear any existing timeout before starting a new one (safety check)
-    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current)
-
-    hoverTimeoutRef.current = setTimeout(() => {
-      setIsHovered(true)
-    }, 1000) // 1 second delay
+    hoverTimeout = setTimeout(() => setIsHovered(true), 1000) // 1 second delay
   }
 
   const handleMouseLeave = () => {
-    // Clear the timeout if the user leaves before the 1 second is up
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current)
-      hoverTimeoutRef.current = null
-    }
+    clearTimeout(hoverTimeout)
     setIsHovered(false)
   }
 

@@ -1,8 +1,266 @@
-import { Data, IProductInput } from '@/types'
+import { Data, IProductInput, IUserInput } from '@/types'
 import { toSlug } from './utils'
+import bcrypt from 'bcryptjs'
+
+const users: IUserInput[] = [
+  {
+    name: 'John',
+    email: 'admin@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'Admin',
+    address: {
+      fullName: 'John Doe',
+      street: '111 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10001',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Stripe',
+    emailVerified: false,
+  },
+  {
+    name: 'Jane',
+    email: 'jane@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Jane Harris',
+      street: '222 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '1002',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Cash On Delivery',
+    emailVerified: false,
+  },
+  {
+    name: 'Jack',
+    email: 'jack@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Jack Ryan',
+      street: '333 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '1003',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'PayPal',
+    emailVerified: false,
+  },
+  {
+    name: 'Sarah',
+    email: 'sarah@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Sarah Smith',
+      street: '444 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '1005',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Cash On Delivery',
+    emailVerified: false,
+  },
+  {
+    name: 'Michael',
+    email: 'michael@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'John Alexander',
+      street: '555 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '1006',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'PayPal',
+    emailVerified: false,
+  },
+  {
+    name: 'Emily',
+    email: 'emily@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Emily Johnson',
+      street: '666 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10001',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Stripe',
+    emailVerified: false,
+  },
+  {
+    name: 'Alice',
+    email: 'alice@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Alice Cooper',
+      street: '777 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10007',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Cash On Delivery',
+    emailVerified: false,
+  },
+  {
+    name: 'Tom',
+    email: 'tom@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Tom Hanks',
+      street: '888 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10008',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Stripe',
+    emailVerified: false,
+  },
+  {
+    name: 'Linda',
+    email: 'linda@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Linda Holmes',
+      street: '999 Main St',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10009',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'PayPal',
+    emailVerified: false,
+  },
+  {
+    name: 'George',
+    email: 'george@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'George Smith',
+      street: '101 First Ave',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10010',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Stripe',
+    emailVerified: false,
+  },
+  {
+    name: 'Jessica',
+    email: 'jessica@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Jessica Brown',
+      street: '102 First Ave',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10011',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Cash On Delivery',
+    emailVerified: false,
+  },
+  {
+    name: 'Chris',
+    email: 'chris@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Chris Evans',
+      street: '103 First Ave',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10012',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'PayPal',
+    emailVerified: false,
+  },
+  {
+    name: 'Samantha',
+    email: 'samantha@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Samantha Wilson',
+      street: '104 First Ave',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10013',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Stripe',
+    emailVerified: false,
+  },
+  {
+    name: 'David',
+    email: 'david@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'David Lee',
+      street: '105 First Ave',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10014',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'Cash On Delivery',
+    emailVerified: false,
+  },
+  {
+    name: 'Anna',
+    email: 'anna@example.com',
+    password: bcrypt.hashSync('123456', 5),
+    role: 'User',
+    address: {
+      fullName: 'Anna Smith',
+      street: '106 First Ave',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10015',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'PayPal',
+    emailVerified: false,
+  },
+]
 
 const products: IProductInput[] = [
-  // T-Shirts
   {
     name: 'Nike Mens Slim-fit Long-Sleeve T-Shirt',
     slug: toSlug('Nike Mens Slim-fit Long-Sleeve T-Shirt'),
@@ -28,6 +286,7 @@ const products: IProductInput[] = [
       'Made with chemicals safer for human health and the environment',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: ['Green', 'Red', 'Black'],
+
     reviews: [],
   },
   {
@@ -57,9 +316,11 @@ const products: IProductInput[] = [
     numSales: 29,
     countInStock: 12,
     description:
-      'Made with sustainably sourced USA grown cotton; Shoulder-to-shoulder tape; double-needle coverstitched front neck.',
+      'Made with sustainably sourced USA grown cotton; Shoulder-to-shoulder tape; double-needle coverstitched front neck; Set-in sleeves; Rib cuffs with concealed seams; Seamless body for a wide printing area',
+
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: ['Yellow', 'Red', 'Black'],
+
     reviews: [],
   },
   {
@@ -84,14 +345,17 @@ const products: IProductInput[] = [
     numSales: 55,
     countInStock: 13,
     description:
-      'Dri-power technology that wicks away moisture to keep you cool and dry.',
+      'The Jerzees long sleeve t-shirt is made with dri-power technology that wicks away moisture to keep you cool and dry throughout your day. We also included a rib collar and cuffs for added durability, and a lay-flat collar for comfort. If you are looking for a versatile shirt that you can wear throughout the transitioning seasons, then look no further.',
     sizes: ['XL', 'XXL'],
     colors: ['Green', 'White'],
+
     reviews: [],
   },
   {
-    name: 'Decrum Mens Plain Long Sleeve T-Shirt',
-    slug: toSlug('Decrum Mens Plain Long Sleeve T-Shirt'),
+    name: 'Decrum Mens Plain Long Sleeve T-Shirt - Comfortable Soft Fashion V Neck Full Sleeves Jersey Shirts',
+    slug: toSlug(
+      'Decrum Mens Plain Long Sleeve T-Shirt - Comfortable Soft Fashion V Neck Full Sleeves Jersey Shirts',
+    ),
     category: 'T-Shirts',
     brand: 'Jerzees',
     images: ['/images/p14-1.jpg', '/images/p14-2.jpg'],
@@ -110,14 +374,18 @@ const products: IProductInput[] = [
     ],
     numSales: 54,
     countInStock: 14,
-    description: 'Elevate your outfit with this soft long sleeve t shirt men.',
+    description:
+      'Elevate your outfit with this soft long sleeve t shirt men. This full sleeves tee is the ultimate upgrade from your regular cotton t-shirt. ',
     sizes: ['XL', 'XXL'],
     colors: ['Yellow', 'White'],
+
     reviews: [],
   },
   {
-    name: "Muscle Cmdr Men's Slim Fit Henley Shirt",
-    slug: toSlug("Muscle Cmdr Men's Slim Fit Henley Shirt"),
+    name: "Muscle Cmdr Men's Slim Fit Henley Shirt Long&Short Business Sleeve Casual 3 Metal Buton Placket Casual Stylish T-Shirt",
+    slug: toSlug(
+      "Muscle Cmdr Men's Slim Fit Henley Shirt Long&Short Business Sleeve Casual 3 Metal Buton Placket Casual Stylish T-Shirt",
+    ),
     category: 'T-Shirts',
     brand: ' Muscle Cmdr',
     images: ['/images/p15-1.jpg', '/images/p15-2.jpg'],
@@ -136,9 +404,11 @@ const products: IProductInput[] = [
     ],
     numSales: 54,
     countInStock: 15,
-    description: 'Slim Fit Design: Designed to fit snugly against your body.',
+    description:
+      "Slim Fit Design:Men's Muscle Slim Fit Button Henley Shirts are designed to fit snugly against your body, accentuating your muscles and creating a sleek silhouette that's perfect for any occasion. ",
     sizes: ['XL', 'XXL'],
     colors: ['Green', 'Yellow'],
+
     reviews: [],
   },
   {
@@ -162,9 +432,11 @@ const products: IProductInput[] = [
     ],
     countInStock: 16,
     numSales: 56,
-    description: 'Heavyweight cotton (Heathers are 60% cotton/40% polyester).',
+    description:
+      'Heavyweight cotton (Heathers are 60% cotton/40% polyester; Pebblestone is 75% cotton/25% polyester)',
     sizes: ['XL', 'XXL'],
     colors: ['Grey', 'White'],
+
     reviews: [],
   },
   // Jeans
@@ -190,14 +462,17 @@ const products: IProductInput[] = [
     countInStock: 54,
     numSales: 21,
     description:
-      'Consider Jace a modern cowboy jean. Slim fit through hip and thigh.',
+      'Silver Jeans Co. Jace Slim Fit Bootcut Jeans - Consider Jace a modern cowboy jean. It sits below the waist and features a slim fit through the hip and thigh. Finished with an 18” bootcut leg opening that complements the slimmer silhouette while still fitting over boots',
     sizes: ['30Wx30L', '34Wx30L', '36Wx30L'],
     colors: ['Blue', 'Grey'],
+
     reviews: [],
   },
   {
-    name: "Levi's mens 505 Regular Fit Jeans",
-    slug: toSlug("Levi's mens 505 Regular Fit Jeans"),
+    name: "Levi's mens 505 Regular Fit Jeans (Also Available in Big & Tall)",
+    slug: toSlug(
+      "Levi's mens 505 Regular Fit Jeans (Also Available in Big & Tall)",
+    ),
     category: 'Jeans',
     brand: "Levi's",
     images: ['/images/p22-1.jpg', '/images/p22-2.jpg'],
@@ -217,9 +492,10 @@ const products: IProductInput[] = [
     countInStock: 22,
     numSales: 54,
     description:
-      'A veritable classic, made to have a comfortable look and style.',
+      'A veritable classic, this 505 is made to have a comfortable look and style.',
     sizes: ['30Wx30L', '34Wx30L', '36Wx30L'],
     colors: ['Blue', 'Grey'],
+
     reviews: [],
   },
   {
@@ -244,14 +520,17 @@ const products: IProductInput[] = [
     countInStock: 23,
     numSales: 54,
     description:
-      'Classic 5-pocket straight-fit jeans crafted with a bit of stretch.',
+      'These classic 5-pocket straight-fit jeans are crafted with a bit of stretch for additional comfort and to help maintain their shape',
     sizes: ['30Wx30L', '34Wx30L', '36Wx30L'],
     colors: ['Grey', 'Blue'],
+
     reviews: [],
   },
   {
-    name: 'Buffalo David Bitton Driven Relaxed Denim Jeans',
-    slug: toSlug('Buffalo David Bitton Driven Relaxed Denim Jeans'),
+    name: "Buffalo David Bitton Mens Men's Driven Relaxed Denim JeansJeans",
+    slug: toSlug(
+      "Buffalo David Bitton Mens Men's Driven Relaxed Denim JeansJeans",
+    ),
     category: 'Jeans',
     brand: 'Buffalo David Bitton',
     images: ['/images/p24-1.jpg', '/images/p24-2.jpg'],
@@ -271,9 +550,10 @@ const products: IProductInput[] = [
     countInStock: 24,
     numSales: 53,
     description:
-      'Stretch recycled denim jeans in an authentic sanded wash blue.',
+      'Stretch recycled denim jeans in an authentic and sanded wash blue. Features a comfortable low-rise waist with a relaxed fit at the leg. The distressed look gives these jeans an effortlessly worn-in feel. The eco-friendly logo patch in tan and red is at the back waistband. The signature maple leaf graphic is debossed at the zip-fly.',
     sizes: ['30Wx30L', '34Wx30L', '36Wx30L'],
     colors: ['Blue', 'Grey'],
+
     reviews: [],
   },
   {
@@ -297,9 +577,11 @@ const products: IProductInput[] = [
     ],
     countInStock: 25,
     numSales: 48,
-    description: 'Traditional carpenter-style pockets and logo patch.',
+    description:
+      'Relaxed work jean with traditional carpenter-style pockets and logo patch at back pockets',
     sizes: ['30Wx30L', '34Wx30L', '36Wx30L'],
     colors: ['Blue', 'Grey'],
+
     reviews: [],
   },
   {
@@ -324,12 +606,13 @@ const products: IProductInput[] = [
     countInStock: 26,
     numSales: 48,
     description:
-      'Designed for function and comfort for long days in the saddle.',
+      'Designed with a functional fit in mind, these jeans are made to stack over your favorite pair of boots. Constructed with a slim fit in the waist, seat, and thigh, this jean is made for both function and comfort for long days in the saddle.',
     sizes: ['30Wx30L', '34Wx30L', '36Wx30L'],
     colors: ['Blue', 'Grey'],
+
     reviews: [],
   },
-  // Wrist Watches
+  // Watches
   {
     name: "Seiko Men's Analogue Watch with Black Dial",
     slug: toSlug("Seiko Men's Analogue Watch with Black Dial"),
@@ -351,14 +634,18 @@ const products: IProductInput[] = [
     ],
     countInStock: 31,
     numSales: 48,
-    description: 'Case made of stainless steel. Fold over clasp with safety.',
+    description:
+      'Casing: Case made of stainless steel Case shape: round Case colour: silver Glass: Hardlex Clasp type: Fold over clasp with safety',
     sizes: [],
     colors: [],
+
     reviews: [],
   },
   {
-    name: 'SEIKO 5 Sport SRPJ83 Beige Dial Nylon Automatic Watch',
-    slug: toSlug('SEIKO 5 Sport SRPJ83 Beige Dial Nylon Automatic Watch'),
+    name: 'SEIKO 5 Sport SRPJ83 Beige Dial Nylon Automatic Watch, Beige, Automatic Watch',
+    slug: toSlug(
+      'SEIKO 5 Sport SRPJ83 Beige Dial Nylon Automatic Watch, Beige, Automatic Watch',
+    ),
     category: 'Wrist Watches',
     brand: 'Seiko',
     images: ['/images/p32-1.jpg', '/images/p32-2.jpg'],
@@ -377,14 +664,18 @@ const products: IProductInput[] = [
     ],
     countInStock: 32,
     numSales: 48,
-    description: 'Inspired by vintage field/aviator style.',
+    description:
+      'Seiko 5 Sports Collection Inspired by vintage field/aviator style: Automatic with manual winding capability',
     sizes: [],
     colors: [],
+
     reviews: [],
   },
   {
-    name: "Casio Men's Heavy Duty Analog Quartz Watch",
-    slug: toSlug("Casio Men's Heavy Duty Analog Quartz Watch"),
+    name: "Casio Men's Heavy Duty Analog Quartz Stainless Steel Strap, Silver, 42 Casual Watch ",
+    slug: toSlug(
+      "Casio Men's Heavy Duty Analog Quartz Stainless Steel Strap, Silver, 42 Casual Watch",
+    ),
     category: 'Wrist Watches',
     brand: 'Casio',
     images: ['/images/p33-1.jpg', '/images/p33-2.jpg'],
@@ -403,14 +694,18 @@ const products: IProductInput[] = [
     ],
     countInStock: 33,
     numSales: 48,
-    description: 'Stainless steel case with a brushed finish.',
+    description:
+      'The Casio range is growing with this model  MWA-100H-1AVEF. Sporting a stainless steel case with a brushed finish, it will easily withstand all the shocks of everyday life.',
     sizes: [],
     colors: [],
+
     reviews: [],
   },
   {
-    name: 'Casio Classic Silver-Tone Stainless Steel Watch',
-    slug: toSlug('Casio Classic Silver-Tone Stainless Steel Watch'),
+    name: 'Casio Classic Silver-Tone Stainless Steel Band Date Indicator Watch',
+    slug: toSlug(
+      'Casio Classic Silver-Tone Stainless Steel Band Date Indicator Watch',
+    ),
     category: 'Wrist Watches',
     brand: 'Casio',
     images: ['/images/p34-1.jpg', '/images/p34-2.jpg'],
@@ -429,14 +724,16 @@ const products: IProductInput[] = [
     ],
     countInStock: 34,
     numSales: 48,
-    description: 'Classic 50 meter water resistant stainless steel watch.',
+    description:
+      'The new MTPVD01D-7EV is a classic 50 meter water resistant stainless steel watch now updated with a white dial. This elegant 3 hand, date display timepiece is perfect for any setting.',
     sizes: [],
     colors: [],
+
     reviews: [],
   },
   {
-    name: "Fossil Men's Grant Stainless Steel Chronograph Watch",
-    slug: toSlug("Fossil Men's Grant Stainless Steel Chronograph Watch"),
+    name: "Fossil Men's Grant Stainless Steel Quartz Chronograph Watch",
+    slug: toSlug("Fossil Men's Grant Stainless Steel Quartz Chronograph Watch"),
     category: 'Wrist Watches',
     brand: 'Fossil',
     images: ['/images/p35-1.jpg', '/images/p35-2.jpg'],
@@ -455,14 +752,16 @@ const products: IProductInput[] = [
     ],
     countInStock: 35,
     numSales: 48,
-    description: 'Silver- and blue-tone case with blue sunray dial.',
+    description:
+      'Chronograph watch featuring silver- and blue-tone case, blue sunray dial, and silver-tone Roman numeral indices',
     sizes: [],
     colors: ['Blue', 'Black', 'Sliver'],
+
     reviews: [],
   },
   {
-    name: "Fossil Men's Machine Stainless Steel Watch",
-    slug: toSlug("Fossil Men's Machine Stainless Steel Watch"),
+    name: "Fossil Men's Machine Stainless Steel Quartz Watch",
+    slug: toSlug("Fossil Men's Machine Stainless Steel Quartz Watch"),
     category: 'Wrist Watches',
     brand: 'Fossil',
     images: ['/images/p36-1.jpg', '/images/p36-2.jpg'],
@@ -482,15 +781,16 @@ const products: IProductInput[] = [
     countInStock: 36,
     numSales: 49,
     description:
-      'Industrial-inspired Machine watch with a masculine black-on-black touch.',
+      'In masculine black-on-black, our industrial-inspired Machine watch will add a fresh, modern touch to your casual look. This Machine watch also features a three hand movement on a stainless steel bracelet.',
     sizes: [],
     colors: ['Brown', 'Sliver', 'Black'],
+
     reviews: [],
   },
-  // Shoes
+  // Sneakers
   {
-    name: 'adidas Mens Grand Court 2.0 Training Shoes',
-    slug: toSlug('adidas Mens Grand Court 2.0 Training Shoes'),
+    name: 'adidas Mens Grand Court 2.0 Training Shoes Training Shoes',
+    slug: toSlug('adidas Mens Grand Court 2.0 Training Shoes Training Shoes'),
     category: 'Shoes',
     brand: 'adidas',
     images: ['/images/p41-1.jpg', '/images/p41-2.jpg'],
@@ -509,14 +809,18 @@ const products: IProductInput[] = [
     ],
     countInStock: 41,
     numSales: 48,
-    description: 'Cloudfoam Comfort sockliner is ultra-soft and plush.',
+    description:
+      'Cloudfoam Comfort sockliner is ultra-soft and plush, with two layers of cushioning topped with soft, breathable mesh',
     sizes: ['8', '9', '10'],
     colors: ['White', 'Black', 'Grey'],
+
     reviews: [],
   },
   {
-    name: "ziitop Men's Running Walking Shoes",
-    slug: toSlug("ziitop Men's Running Walking Shoes"),
+    name: "ziitop Men's Running Walking Shoes Fashion Sneakers Mesh Dress Shoes Business Oxfords Shoes Lightweight Casual Breathable Work Formal Shoes",
+    slug: toSlug(
+      "ziitop Men's Running Walking Shoes Fashion Sneakers Mesh Dress Shoes Business Oxfords Shoes Lightweight Casual Breathable Work Formal Shoes",
+    ),
     category: 'Shoes',
     brand: 'ziitop',
     images: ['/images/p42-1.jpg', '/images/p42-2.jpg'],
@@ -535,14 +839,18 @@ const products: IProductInput[] = [
     ],
     countInStock: 42,
     numSales: 50,
-    description: 'Lightweight casual breathable work formal shoes.',
+    description:
+      'Cloudfoam Comfort sockliner is ultra-soft and plush, with two layers of cushioning topped with soft, breathable mesh',
     sizes: ['8', '9', '10'],
     colors: ['Beige', 'Black', 'Grey'],
+
     reviews: [],
   },
   {
-    name: 'Skechers mens Summits High Range Shoes',
-    slug: toSlug('Skechers mens Summits High Range Shoes'),
+    name: 'Skechers mens Summits High Range Hands Free Slip-in Shoes Work shoe',
+    slug: toSlug(
+      'Skechers mens Summits High Range Hands Free Slip-in Shoes Work shoe',
+    ),
     category: 'Shoes',
     brand: 'Skechers',
     images: ['/images/p43-1.jpg', '/images/p43-2.jpg'],
@@ -561,14 +869,18 @@ const products: IProductInput[] = [
     ],
     countInStock: 43,
     numSales: 72,
-    description: 'Exclusive Heel Pillow™ holds your foot securely in place.',
+    description:
+      'Step into easy-wearing comfort with Skechers Hands Free Slip-ins™: Summits - High Range. Along with our Exclusive Heel Pillow™ holds your foot securely in place, this vegan style features a unique pop-up Skechers Slip-ins™ molded heel panel, a mesh upper with fixed laces',
     sizes: ['8', '9', '10'],
     colors: ['Navy', 'Black', 'Grey'],
+
     reviews: [],
   },
   {
-    name: 'DLWKIPV Mens Running Shoes',
-    slug: toSlug('DLWKIPV Mens Running Shoes'),
+    name: 'DLWKIPV Mens Running Shoes Tennis Cross Training Sneakers Fashion Non Slip Outdoor Walking Jogging Shoes Mesh Light Flexible Comfortable Breathable Shoes',
+    slug: toSlug(
+      'DLWKIPV Mens Running Shoes Tennis Cross Training Sneakers Fashion Non Slip Outdoor Walking Jogging Shoes Mesh Light Flexible Comfortable Breathable Shoes',
+    ),
     category: 'Shoes',
     brand: 'DLWKIPV',
     images: ['/images/p44-1.jpg', '/images/p44-2.jpg'],
@@ -588,9 +900,10 @@ const products: IProductInput[] = [
     countInStock: 44,
     numSales: 72,
     description:
-      'Sole anti-slip groove design, shock absorption and anti-slip.',
+      'Design: Mesh vamp, ventilation. Sole anti-slip groove design, shock absorption and anti-slip. The inside of the shoe is wide and soft, bringing you a good comfortable experience',
     sizes: ['8', '9', '10', '11', '12'],
     colors: ['Brown', 'Black', 'Grey'],
+
     reviews: [],
   },
   {
@@ -614,14 +927,18 @@ const products: IProductInput[] = [
     ],
     countInStock: 45,
     numSales: 64,
-    description: 'Main upper material is made with recycled content.',
+    description:
+      "At least 50% of the shoe's main upper material is made with recycled content to reduce waste and carbon emissions",
     sizes: ['8', '9', '10', '11'],
     colors: ['Blue', 'Black', 'Grey'],
+
     reviews: [],
   },
   {
-    name: 'Mens Wearbreeze Shoes Urban',
-    slug: toSlug('Mens Wearbreeze Shoes Urban'),
+    name: "Mens Wearbreeze Shoes, Urban - Ultra Comfortable Shoes, Breeze Shoes for Men, Men's Mesh Dress Sneakers Business Shoes",
+    slug: toSlug(
+      "Mens Wearbreeze Shoes, Urban - Ultra Comfortable Shoes, Breeze Shoes for Men, Men's Mesh Dress Sneakers Business Shoes",
+    ),
     category: 'Shoes',
     brand: 'Generic',
     images: ['/images/p46-1.jpg', '/images/p46-2.jpg'],
@@ -640,24 +957,144 @@ const products: IProductInput[] = [
     ],
     countInStock: 46,
     numSales: 48,
-    description: 'Cloudfoam Comfort sockliner is ultra-soft and plush.',
+    description:
+      'Cloudfoam Comfort sockliner is ultra-soft and plush, with two layers of cushioning topped with soft, breathable mesh',
     sizes: ['8', '9', '10', '11'],
     colors: ['Green', 'Black', 'Grey'],
+
     reviews: [],
+  },
+]
+const reviews = [
+  {
+    rating: 1,
+    title: 'Poor quality',
+    comment:
+      'Very disappointed. The item broke after just a few uses. Not worth the money.',
+  },
+  {
+    rating: 2,
+    title: 'Disappointed',
+    comment:
+      "Not as expected. The material feels cheap, and it didn't fit well. Wouldn't buy again.",
+  },
+  {
+    rating: 2,
+    title: 'Needs improvement',
+    comment:
+      "It looks nice but doesn't perform as expected. Wouldn't recommend without upgrades.",
+  },
+  {
+    rating: 3,
+    title: 'not bad',
+    comment:
+      'This product is decent, the quality is good but it could use some improvements in the details.',
+  },
+  {
+    rating: 3,
+    title: 'Okay, not great',
+    comment:
+      'It works, but not as well as I hoped. Quality is average and lacks some finishing.',
+  },
+  {
+    rating: 3,
+    title: 'Good product',
+    comment:
+      'This product is amazing, I love it! The quality is top notch, the material is comfortable and breathable.',
+  },
+  {
+    rating: 4,
+    title: 'Pretty good',
+    comment:
+      "Solid product! Great value for the price, but there's room for minor improvements.",
+  },
+  {
+    rating: 4,
+    title: 'Very satisfied',
+    comment:
+      'Good product! High quality and worth the price. Would consider buying again.',
+  },
+  {
+    rating: 4,
+    title: 'Absolutely love it!',
+    comment:
+      'Perfect in every way! The quality, design, and comfort exceeded all my expectations.',
+  },
+  {
+    rating: 4,
+    title: 'Exceeded expectations!',
+    comment:
+      'Fantastic product! High quality, feels durable, and performs well. Highly recommend!',
+  },
+  {
+    rating: 5,
+    title: 'Perfect purchase!',
+    comment:
+      "Couldn't be happier with this product. The quality is excellent, and it works flawlessly!",
+  },
+  {
+    rating: 5,
+    title: 'Highly recommend',
+    comment:
+      "Amazing product! Worth every penny, great design, and feels premium. I'm very satisfied.",
+  },
+  {
+    rating: 5,
+    title: 'Just what I needed',
+    comment:
+      'Exactly as described! Quality exceeded my expectations, and it arrived quickly.',
+  },
+  {
+    rating: 5,
+    title: 'Excellent choice!',
+    comment:
+      'This product is outstanding! Everything about it feels top-notch, from material to functionality.',
+  },
+  {
+    rating: 5,
+    title: "Couldn't ask for more!",
+    comment:
+      "Love this product! It's durable, stylish, and works great. Would buy again without hesitation.",
   },
 ]
 
 const data: Data = {
+  users,
   products,
+  reviews,
   headerMenus: [
-    { name: "Today's Deal", href: '/search?tag=todays-deal' },
-    { name: 'New Arrivals', href: '/search?tag=new-arrival' },
-    { name: 'Featured Products', href: '/search?tag=featured' },
-    { name: 'Best Sellers', href: '/search?tag=best-seller' },
-    { name: 'Browsing History', href: '/#browsing-history' },
-    { name: 'Customer Service', href: '/page/customer-service' },
-    { name: 'About Us', href: '/page/about-us' },
-    { name: 'Help', href: '/page/help' },
+    {
+      name: "Today's Deal",
+      href: '/search?tag=todays-deal',
+    },
+    {
+      name: 'New Arrivals',
+      href: '/search?tag=new-arrival',
+    },
+    {
+      name: 'Featured Products',
+      href: '/search?tag=featured',
+    },
+    {
+      name: 'Best Sellers',
+      href: '/search?tag=best-seller',
+    },
+    {
+      name: 'Browsing History',
+      href: '/#browsing-history',
+    },
+    {
+      name: 'Customer Service',
+      href: '/page/customer-service',
+    },
+    {
+      name: 'About Us',
+      href: '/page/about-us',
+    },
+    {
+      name: 'Help',
+      href: '/page/help',
+    },
   ],
   carousels: [
     {

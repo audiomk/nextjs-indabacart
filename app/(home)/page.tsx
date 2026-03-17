@@ -1,3 +1,4 @@
+import BrowsingHistoryList from '@/components/shared/browsing-history-list'
 import { HomeCard } from '@/components/shared/home/home-card'
 import { HomeCarousel } from '@/components/shared/home/home-carousel'
 import ProductSlider from '@/components/shared/product/product-slider'
@@ -71,6 +72,7 @@ export default async function Page() {
       <HomeCarousel items={data.carousels} />
       <div className='md:p-4 md:space-y-4 bg-border'>
         <HomeCard cards={cards} />
+
         <Card className='w-full rounded-none'>
           <CardContent className='p-4 items-center gap-3'>
             <ProductSlider title={"Today's Deals"} products={todaysDeals} />
@@ -86,6 +88,9 @@ export default async function Page() {
             />
           </CardContent>
         </Card>
+      </div>
+      <div className='p-4 bg-background'>
+        <BrowsingHistoryList />
       </div>
     </>
   )

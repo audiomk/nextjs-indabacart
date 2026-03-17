@@ -1,7 +1,3 @@
-// https://v0.dev/chat/PW7RbMctgbv
-// PROMPT: create a rating component like amazon. only the star icons.
-// it get rating as number and show stars based on it. it should cover all floating point numbers like 4.2, 4.5, 4.8
-
 import React from 'react'
 import { Star } from 'lucide-react'
 
