@@ -97,6 +97,12 @@
   }
 }
 
+@layer utilities {
+  .web-page-content p {
+    @apply py-2;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

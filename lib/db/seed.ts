@@ -15,11 +15,12 @@ import {
   round2,
 } from '../utils'
 import { AVAILABLE_DELIVERY_DATES } from '../constants'
+import WebPage from './models/web-page.model'
 loadEnvConfig(cwd())
 
 const main = async () => {
   try {
-    const { products, users, reviews } = data
+    const { products, users, reviews, webPages } = data
     await connectToDatabase(process.env.MONGODB_URI)
 
     await User.deleteMany()
@@ -64,6 +65,8 @@ const main = async () => {
     }
     const createdOrders = await Order.insertMany(orders)
 
+    await WebPage.deleteMany()
+    await WebPage.insertMany(webPages)
     console.log({
       createdUser,
       createdProducts,

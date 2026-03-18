@@ -191,7 +191,7 @@ const webPageSchema = new Schema<IWebPage>(
   },
   {
     timestamps: true,
-  }
+  },
 )
 
 const WebPage =
@@ -298,11 +298,11 @@ export default async function WebPageAdminPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className='w-[100px]'>Id</TableHead>
+              <TableHead className='w-25'>Id</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Slug</TableHead>
               <TableHead>IsPublished</TableHead>
-              <TableHead className='w-[100px]'>Actions</TableHead>
+              <TableHead className='w-25'>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
