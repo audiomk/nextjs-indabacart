@@ -287,18 +287,18 @@ const initialState: ColorState = {
 export const colorStore = create<ColorState>()(
   persist(() => initialState, {
     name: 'colorStore',
-  })
+  }),
 )
 
 export default function useColorStore(theme: string = 'light') {
   const colorState = colorStore()
   const getColor = () => {
     const userColor = colorState.availableColors.find(
-      (t) => t.name === colorState.userColor
+      (t) => t.name === colorState.userColor,
     )
     if (userColor) return userColor
     const defaultColor = colorState.availableColors.find(
-      (t) => t.name === colorState.defaultColor
+      (t) => t.name === colorState.defaultColor,
     )
     if (defaultColor) return defaultColor
 
@@ -315,7 +315,7 @@ export default function useColorStore(theme: string = 'light') {
     getColor,
     setColor: (name: string, isUserColor?: boolean) => {
       colorStore.setState(
-        isUserColor ? { userColor: name } : { defaultColor: name }
+        isUserColor ? { userColor: name } : { defaultColor: name },
       )
     },
     updateCssVariables: () => {
@@ -429,7 +429,7 @@ export default function ThemeSwitcher() {
   const isMounted = useIsMounted()
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className='header-button h-[41px]'>
+      <DropdownMenuTrigger className='header-button h-10.25'>
         {theme === 'dark' && isMounted ? (
           <div className='flex items-center gap-1'>
             <Moon className='h-4 w-4' /> Dark <ChevronDownIcon />

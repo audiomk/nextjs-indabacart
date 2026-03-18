@@ -121,7 +121,7 @@ const ProductList = () => {
                 <TableHead>Rating</TableHead>
                 <TableHead>Published</TableHead>
                 <TableHead>Last Update</TableHead>
-                <TableHead className='w-[100px]'>Actions</TableHead>
+                <TableHead className='w-25'>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

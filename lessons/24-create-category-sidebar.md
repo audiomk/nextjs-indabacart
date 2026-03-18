@@ -40,11 +40,11 @@ export default async function Sidebar({
 
   return (
     <Drawer direction='left'>
-      <DrawerTrigger className='header-button flex items-center !p-2  '>
+      <DrawerTrigger className='header-button flex items-center p-2!  '>
         <MenuIcon className='h-5 w-5 mr-1' />
         All
       </DrawerTrigger>
-      <DrawerContent className='w-[350px] mt-0 top-0'>
+      <DrawerContent className='w-87.5 mt-0 top-0'>
         <div className='flex flex-col h-full'>
           {/* User Sign In Section */}
           <div className='dark bg-gray-800 text-foreground flex items-center justify-between  '>

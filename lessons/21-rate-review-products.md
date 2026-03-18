@@ -89,7 +89,7 @@ const reviewSchema = new Schema<IReview>(
   },
   {
     timestamps: true,
-  }
+  },
 )
 
 const Review =
@@ -672,7 +672,7 @@ export default function ReviewList({
                   Write a customer review
                 </Button>
 
-                <DialogContent className='sm:max-w-[425px]'>
+                <DialogContent className='sm:max-w-106.25'>
                   <Form {...form}>
                     <form method='post' onSubmit={form.handleSubmit(onSubmit)}>
                       <DialogHeader>

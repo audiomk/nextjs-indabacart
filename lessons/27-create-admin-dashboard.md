@@ -759,7 +759,7 @@ export default function OverviewReport() {
 
         {/* Second Row */}
         <div>
-          <Skeleton className='h-[30rem] w-full' />
+          <Skeleton className='h-120 w-full' />
         </div>
 
         {/* Third Row */}

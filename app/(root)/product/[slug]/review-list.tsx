@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import Rating from '@/components/shared/product/rating'
@@ -23,6 +24,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog'
 import {
   Form,
@@ -40,17 +42,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { useToast } from '@/hooks/use-toast'
 import {
   createUpdateReview,
   getReviewByProductId,
   getReviews,
 } from '@/lib/actions/review.actions'
+import { IProduct } from '@/lib/db/models/product.model'
 import { ReviewInputSchema } from '@/lib/validator'
 import RatingSummary from '@/components/shared/product/rating-summary'
-import { IProduct } from '@/lib/db/models/product.model'
-import { Separator } from '@/components/ui/separator'
 import { IReviewDetails } from '@/types'
 
 const reviewFormDefaultValues = {
@@ -69,19 +70,17 @@ export default function ReviewList({
   const [page, setPage] = useState(2)
   const [totalPages, setTotalPages] = useState(0)
   const [reviews, setReviews] = useState<IReviewDetails[]>([])
+  const [open, setOpen] = useState(false)
+  const [loadingReviews, setLoadingReviews] = useState(false)
   const { ref, inView } = useInView({ triggerOnce: true })
+
   const reload = async () => {
     try {
       const res = await getReviews({ productId: product._id, page: 1 })
       setReviews([...res.data])
       setTotalPages(res.totalPages)
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      toast({
-        variant: 'destructive',
-        description: 'Error in fetching reviews',
-      })
+    } catch {
+      toast.error('Error in fetching reviews')
     }
   }
 
@@ -95,7 +94,6 @@ export default function ReviewList({
     setPage(page + 1)
   }
 
-  const [loadingReviews, setLoadingReviews] = useState(false)
   useEffect(() => {
     const loadReviews = async () => {
       setLoadingReviews(true)
@@ -104,7 +102,6 @@ export default function ReviewList({
       setTotalPages(res.totalPages)
       setLoadingReviews(false)
     }
-
     if (inView) {
       loadReviews()
     }
@@ -116,23 +113,19 @@ export default function ReviewList({
     resolver: zodResolver(ReviewInputSchema),
     defaultValues: reviewFormDefaultValues,
   })
-  const [open, setOpen] = useState(false)
-  const { toast } = useToast()
+
   const onSubmit: SubmitHandler<CustomerReview> = async (values) => {
     const res = await createUpdateReview({
       data: { ...values, product: product._id },
       path: `/product/${product.slug}`,
     })
-    if (!res.success)
-      return toast({
-        variant: 'destructive',
-        description: res.message,
-      })
+    if (!res.success) {
+      toast.error(res.message)
+      return
+    }
     setOpen(false)
     reload()
-    toast({
-      description: res.message,
-    })
+    toast.success(res.message)
   }
 
   const handleOpenForm = async () => {
@@ -147,6 +140,7 @@ export default function ReviewList({
     }
     setOpen(true)
   }
+
   return (
     <div className='space-y-2'>
       {reviews.length === 0 && <div>No reviews yet</div>}
@@ -168,15 +162,17 @@ export default function ReviewList({
             <p className='text-sm'>Share your thoughts with other customers</p>
             {userId ? (
               <Dialog open={open} onOpenChange={setOpen}>
-                <Button
-                  onClick={handleOpenForm}
-                  variant='outline'
-                  className=' rounded-full w-full'
-                >
-                  Write a customer review
-                </Button>
+                <DialogTrigger asChild>
+                  <Button
+                    onClick={handleOpenForm}
+                    variant='outline'
+                    className='rounded-full w-full'
+                  >
+                    Write a customer review
+                  </Button>
+                </DialogTrigger>
 
-                <DialogContent className='sm:max-w-106.25'>
+                <DialogContent className='sm:max-w-lg'>
                   <Form {...form}>
                     <form method='post' onSubmit={form.handleSubmit(onSubmit)}>
                       <DialogHeader>
@@ -186,7 +182,7 @@ export default function ReviewList({
                         </DialogDescription>
                       </DialogHeader>
                       <div className='grid gap-4 py-4'>
-                        <div className='flex flex-col gap-5  '>
+                        <div className='flex flex-col gap-5'>
                           <FormField
                             control={form.control}
                             name='title'
@@ -200,7 +196,6 @@ export default function ReviewList({
                               </FormItem>
                             )}
                           />
-
                           <FormField
                             control={form.control}
                             name='comment'
@@ -250,14 +245,12 @@ export default function ReviewList({
                                     )}
                                   </SelectContent>
                                 </Select>
-
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
                         </div>
                       </div>
-
                       <DialogFooter>
                         <Button
                           type='submit'
@@ -287,6 +280,7 @@ export default function ReviewList({
             )}
           </div>
         </div>
+
         <div className='md:col-span-3 flex flex-col gap-3'>
           {reviews.map((review: IReviewDetails) => (
             <Card key={review._id}>
@@ -316,11 +310,10 @@ export default function ReviewList({
           ))}
           <div ref={ref}>
             {page <= totalPages && (
-              <Button variant={'link'} onClick={loadMoreReviews}>
+              <Button variant='link' onClick={loadMoreReviews}>
                 See more reviews
               </Button>
             )}
-
             {page < totalPages && loadingReviews && 'Loading'}
           </div>
         </div>

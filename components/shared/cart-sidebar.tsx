@@ -2,7 +2,8 @@ import useCartStore from '@/hooks/use-cart-store'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
-import { Button, buttonVariants } from '../ui/button'
+import { buttonVariants } from '../ui/button-variants'
+import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 import { ScrollArea } from '../ui/scroll-area'
 import Image from 'next/image'
@@ -42,7 +43,7 @@ export default function CartSidebar() {
             <Link
               className={cn(
                 buttonVariants({ variant: 'outline' }),
-                'rounded-full hover:no-underline w-full'
+                'rounded-full hover:no-underline w-full',
               )}
               href='/cart'
             >
@@ -85,7 +86,7 @@ export default function CartSidebar() {
                             <SelectItem value={(i + 1).toString()} key={i + 1}>
                               {i + 1}
                             </SelectItem>
-                          )
+                          ),
                         )}
                       </SelectContent>
                     </Select>
