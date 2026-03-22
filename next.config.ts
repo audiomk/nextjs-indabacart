@@ -2,7 +2,6 @@ import type { NextConfig } from 'next'
 import withNextIntl from 'next-intl/plugin'
 
 const nextConfig: NextConfig = withNextIntl()({
-  /* config options here */
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -12,6 +11,11 @@ const nextConfig: NextConfig = withNextIntl()({
         port: '',
       },
     ],
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
 })
 
