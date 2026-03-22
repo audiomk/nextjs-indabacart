@@ -44,7 +44,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         await connectToDatabase()
         if (credentials == null) return null
 
-        const user = await User.findOne({ email: credentials.email })
+        const user = await User.findOne({ email: credentials.email as string })
 
         if (user && user.password) {
           const isMatch = await bcrypt.compare(
@@ -53,7 +53,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           )
           if (isMatch) {
             return {
-              id: user._id,
+              id: user._id.toString(),
               name: user.name,
               email: user.email,
               role: user.role,

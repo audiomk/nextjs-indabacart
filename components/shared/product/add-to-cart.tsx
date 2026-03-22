@@ -10,10 +10,11 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import useCartStore from '@/hooks/use-cart-store'
-import { useToast } from '@/hooks/use-toast'
 import { OrderItem } from '@/types'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 export default function AddToCart({
   item,
@@ -23,11 +24,9 @@ export default function AddToCart({
   minimal?: boolean
 }) {
   const router = useRouter()
-  const { toast } = useToast()
-
   const { addItem } = useCartStore()
-
   const [quantity, setQuantity] = useState(1)
+  const t = useTranslations()
 
   return minimal ? (
     <Button
@@ -35,27 +34,18 @@ export default function AddToCart({
       onClick={() => {
         try {
           addItem(item, 1)
-          toast({
-            description: 'Added to Cart',
-            action: (
-              <Button
-                onClick={() => {
-                  router.push('/cart')
-                }}
-              >
-                Go to Cart
-              </Button>
-            ),
+          toast.success(t('Product.Added to Cart'), {
+            action: {
+              label: t('Product.Go to Cart'),
+              onClick: () => router.push('/cart'),
+            },
           })
         } catch (error: any) {
-          toast({
-            variant: 'destructive',
-            description: error.message,
-          })
+          toast.error(error.message)
         }
       }}
     >
-      Add to Cart
+      {t('Product.Add to Cart')}
     </Button>
   ) : (
     <div className='w-full space-y-2'>
@@ -63,8 +53,10 @@ export default function AddToCart({
         value={quantity.toString()}
         onValueChange={(i) => setQuantity(Number(i))}
       >
-        <SelectTrigger className=''>
-          <SelectValue>Quantity: {quantity}</SelectValue>
+        <SelectTrigger>
+          <SelectValue>
+            {t('Product.Quantity')}: {quantity}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent position='popper'>
           {Array.from({ length: item.countInStock }).map((_, i) => (
@@ -83,15 +75,13 @@ export default function AddToCart({
             const itemId = await addItem(item, quantity)
             router.push(`/cart/${itemId}`)
           } catch (error: any) {
-            toast({
-              variant: 'destructive',
-              description: error.message,
-            })
+            toast.error(error.message)
           }
         }}
       >
-        Add to Cart
+        {t('Product.Add to Cart')}
       </Button>
+
       <Button
         variant='secondary'
         onClick={() => {
@@ -99,15 +89,12 @@ export default function AddToCart({
             addItem(item, quantity)
             router.push(`/checkout`)
           } catch (error: any) {
-            toast({
-              variant: 'destructive',
-              description: error.message,
-            })
+            toast.error(error.message)
           }
         }}
-        className='w-full rounded-full '
+        className='w-full rounded-full'
       >
-        Buy Now
+        {t('Product.Buy Now')}
       </Button>
     </div>
   )

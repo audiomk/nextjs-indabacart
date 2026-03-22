@@ -1,5 +1,6 @@
 'use client'
 import { useState, useTransition } from 'react'
+import { toast } from 'sonner'
 
 import {
   AlertDialog,
@@ -12,7 +13,6 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { useToast } from '@/hooks/use-toast'
 
 export default function DeleteDialog({
   id,
@@ -25,7 +25,7 @@ export default function DeleteDialog({
 }) {
   const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
-  const { toast } = useToast()
+
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
@@ -42,7 +42,6 @@ export default function DeleteDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-
           <Button
             variant='destructive'
             size='sm'
@@ -51,15 +50,10 @@ export default function DeleteDialog({
               startTransition(async () => {
                 const res = await action(id)
                 if (!res.success) {
-                  toast({
-                    variant: 'destructive',
-                    description: res.message,
-                  })
+                  toast.error(res.message)
                 } else {
                   setOpen(false)
-                  toast({
-                    description: res.message,
-                  })
+                  toast.success(res.message)
                   if (callbackAction) callbackAction()
                 }
               })

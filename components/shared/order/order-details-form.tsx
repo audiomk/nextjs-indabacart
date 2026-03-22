@@ -42,6 +42,8 @@ export default function OrderDetailsForm({
     expectedDeliveryDate,
   } = order
 
+  const orderId = order._id.toString()
+
   return (
     <div className='grid md:grid-cols-3 md:gap-5'>
       <div className='overflow-x-auto md:col-span-2 space-y-4'>
@@ -56,14 +58,12 @@ export default function OrderDetailsForm({
               {shippingAddress.province}, {shippingAddress.postalCode},{' '}
               {shippingAddress.country}{' '}
             </p>
-
             {isDelivered ? (
               <Badge>
                 Delivered at {formatDateTime(deliveredAt!).dateTime}
               </Badge>
             ) : (
               <div>
-                {' '}
                 <Badge variant='destructive'>Not delivered</Badge>
                 <div>
                   Expected delivery at{' '}
@@ -73,6 +73,7 @@ export default function OrderDetailsForm({
             )}
           </CardContent>
         </Card>
+
         <Card>
           <CardContent className='p-4 gap-4'>
             <h2 className='text-xl pb-4'>Payment Method</h2>
@@ -84,8 +85,9 @@ export default function OrderDetailsForm({
             )}
           </CardContent>
         </Card>
+
         <Card>
-          <CardContent className='p-4   gap-4'>
+          <CardContent className='p-4 gap-4'>
             <h2 className='text-xl pb-4'>Order Items</h2>
             <Table>
               <TableHeader>
@@ -108,7 +110,7 @@ export default function OrderDetailsForm({
                           alt={item.name}
                           width={50}
                           height={50}
-                        ></Image>
+                        />
                         <span className='px-2'>{item.name}</span>
                       </Link>
                     </TableCell>
@@ -123,35 +125,32 @@ export default function OrderDetailsForm({
           </CardContent>
         </Card>
       </div>
+
       <div>
         <Card>
-          <CardContent className='p-4  space-y-4 gap-4'>
+          <CardContent className='p-4 space-y-4 gap-4'>
             <h2 className='text-xl pb-4'>Order Summary</h2>
             <div className='flex justify-between'>
               <div>Items</div>
               <div>
-                {' '}
                 <ProductPrice price={itemsPrice} plain />
               </div>
             </div>
             <div className='flex justify-between'>
               <div>Tax</div>
               <div>
-                {' '}
                 <ProductPrice price={taxPrice} plain />
               </div>
             </div>
             <div className='flex justify-between'>
               <div>Shipping</div>
               <div>
-                {' '}
                 <ProductPrice price={shippingPrice} plain />
               </div>
             </div>
             <div className='flex justify-between'>
               <div>Total</div>
               <div>
-                {' '}
                 <ProductPrice price={totalPrice} plain />
               </div>
             </div>
@@ -159,7 +158,7 @@ export default function OrderDetailsForm({
             {!isPaid && ['Stripe', 'PayPal'].includes(paymentMethod) && (
               <Link
                 className={cn(buttonVariants(), 'w-full')}
-                href={`/checkout/${order._id}`}
+                href={`/checkout/${orderId}`}
               >
                 Pay Order
               </Link>
@@ -168,13 +167,13 @@ export default function OrderDetailsForm({
             {isAdmin && !isPaid && paymentMethod === 'Cash On Delivery' && (
               <ActionButton
                 caption='Mark as paid'
-                action={() => updateOrderToPaid(order._id)}
+                action={() => updateOrderToPaid(orderId)}
               />
             )}
             {isAdmin && isPaid && !isDelivered && (
               <ActionButton
                 caption='Mark as delivered'
-                action={() => deliverOrder(order._id)}
+                action={() => deliverOrder(orderId)}
               />
             )}
           </CardContent>

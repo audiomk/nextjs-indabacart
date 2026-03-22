@@ -220,7 +220,7 @@ const settingSchema = new Schema<ISetting>(
   },
   {
     timestamps: true,
-  }
+  },
 )
 
 const Setting =
@@ -364,7 +364,7 @@ const main = async () => {
 
     await Product.deleteMany()
     const createdProducts = await Product.insertMany(
-      products.map((x) => ({ ...x, _id: undefined }))
+      products.map((x) => ({ ...x, _id: undefined })),
     )
 
     await Review.deleteMany()
@@ -397,8 +397,8 @@ const main = async () => {
         await generateOrder(
           i,
           createdUser.map((x) => x._id),
-          createdProducts.map((x) => x._id)
-        )
+          createdProducts.map((x) => x._id),
+        ),
       )
     }
     const createdOrders = await Order.insertMany(orders)
@@ -420,7 +420,7 @@ const main = async () => {
 const generateOrder = async (
   i: number,
   users: any,
-  products: any
+  products: any,
 ): Promise<IOrderInput> => {
   const product1 = await Product.findById(products[i % products.length])
 
@@ -429,14 +429,14 @@ const generateOrder = async (
       i % products.length >= products.length - 1
         ? (i % products.length) - 1
         : (i % products.length) + 1
-    ]
+    ],
   )
   const product3 = await Product.findById(
     products[
       i % products.length >= products.length - 2
         ? (i % products.length) - 2
         : (i % products.length) + 2
-    ]
+    ],
   )
 
   if (!product1 || !product2 || !product3) throw new Error('Product not found')
@@ -510,7 +510,7 @@ export const calcDeliveryDateAndPriceForSeed = ({
 }) => {
   const { availableDeliveryDates } = data.settings[0]
   const itemsPrice = round2(
-    items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    items.reduce((acc, item) => acc + item.price * item.quantity, 0),
   )
 
   const deliveryDate =
@@ -526,7 +526,7 @@ export const calcDeliveryDateAndPriceForSeed = ({
   const totalPrice = round2(
     itemsPrice +
       (shippingPrice ? round2(shippingPrice) : 0) +
-      (taxPrice ? round2(taxPrice) : 0)
+      (taxPrice ? round2(taxPrice) : 0),
   )
   return {
     availableDeliveryDates,
@@ -576,7 +576,7 @@ const useSettingStore = create<SettingState>((set, get) => ({
   getCurrency: () => {
     return (
       get().setting.availableCurrencies.find(
-        (c) => c.code === get().setting.currency
+        (c) => c.code === get().setting.currency,
       ) || data.settings[0].availableCurrencies[0]
     )
   },
@@ -2246,7 +2246,7 @@ export const updateSetting = async (newSetting: ISettingInput) => {
       new: true,
     }).lean()
     globalForSettings.cachedSettings = JSON.parse(
-      JSON.stringify(updatedSetting)
+      JSON.stringify(updatedSetting),
     ) // Update the cache
     return {
       success: true,
